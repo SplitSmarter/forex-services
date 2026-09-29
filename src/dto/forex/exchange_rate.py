@@ -1,0 +1,384 @@
+from datetime import date, datetime
+from typing import Optional
+
+from pydantic import field_validator
+
+from src.constant.db.forex import Currency
+from src.dto.strict_base_model import StrictBaseModel
+
+
+class ExchangeRateDetails(StrictBaseModel):
+    source: str
+    timestamp: datetime
+    created_on: Optional[datetime] = None
+    AED: float
+    AFN: float
+    ALL: float
+    AMD: float
+    ANG: float
+    AOA: float
+    ARS: float
+    AUD: float
+    AWG: float
+    AZN: float
+    BAM: float
+    BBD: float
+    BDT: float
+    BGN: float
+    BHD: float
+    BIF: float
+    BMD: float
+    BND: float
+    BOB: float
+    BRL: float
+    BSD: float
+    BTN: float
+    BWP: float
+    BYN: float
+    BZD: float
+    CAD: float
+    CDF: float
+    CHF: float
+    CLP: float
+    CNY: float
+    COP: float
+    CRC: float
+    CVE: float
+    CZK: float
+    DJF: float
+    DKK: float
+    DOP: float
+    DZD: float
+    EGP: float
+    ETB: float
+    EUR: float
+    FJD: float
+    FKP: float
+    GBP: float
+    GEL: float
+    GGP: float
+    GHS: float
+    GIP: float
+    GMD: float
+    GNF: float
+    GTQ: float
+    GYD: float
+    HKD: float
+    HNL: float
+    HRK: float
+    HTG: float
+    HUF: float
+    IDR: float
+    ILS: float
+    IMP: float
+    INR: float
+    IQD: float
+    IRR: float
+    ISK: float
+    JEP: float
+    JMD: float
+    JOD: float
+    JPY: float
+    KES: float
+    KGS: float
+    KHR: float
+    KMF: float
+    KRW: float
+    KWD: float
+    KYD: float
+    KZT: float
+    LAK: float
+    LBP: float
+    LKR: float
+    LRD: float
+    LSL: float
+    LYD: float
+    MAD: float
+    MDL: float
+    MGA: float
+    MKD: float
+    MMK: float
+    MNT: float
+    MOP: float
+    MRU: float
+    MUR: float
+    MVR: float
+    MWK: float
+    MXN: float
+    MYR: float
+    MZN: float
+    NAD: float
+    NGN: float
+    NIO: float
+    NOK: float
+    NPR: float
+    NZD: float
+    OMR: float
+    PAB: float
+    PEN: float
+    PGK: float
+    PHP: float
+    PKR: float
+    PLN: float
+    PYG: float
+    QAR: float
+    RON: float
+    RSD: float
+    RUB: float
+    RWF: float
+    SAR: float
+    SBD: float
+    SCR: float
+    SDG: float
+    SEK: float
+    SGD: float
+    SHP: float
+    SLE: float
+    SLL: float
+    SOS: float
+    SRD: float
+    SSP: float
+    STN: float
+    SZL: float
+    THB: float
+    TJS: float
+    TMT: float
+    TND: float
+    TOP: float
+    TRY: float
+    TTD: float
+    TWD: float
+    TZS: float
+    UAH: float
+    UGX: float
+    USD: float
+    UYU: float
+    UZS: float
+    VES: float
+    VND: float
+    VUV: float
+    WST: float
+    XAF: float
+    XCD: float
+    XDR: float
+    XOF: float
+    XPF: float
+    YER: float
+    ZAR: float
+    ZMW: float
+    ZWL: float
+
+    class Config:
+        from_attributes = True
+
+
+class HistoricalRateDetails(StrictBaseModel):
+    source: str
+    date: date
+    AED: float
+    AFN: float
+    ALL: float
+    AMD: float
+    ANG: float
+    AOA: float
+    ARS: float
+    AUD: float
+    AWG: float
+    AZN: float
+    BAM: float
+    BBD: float
+    BDT: float
+    BGN: float
+    BHD: float
+    BIF: float
+    BMD: float
+    BND: float
+    BOB: float
+    BRL: float
+    BSD: float
+    BTN: float
+    BWP: float
+    BYN: float
+    BZD: float
+    CAD: float
+    CDF: float
+    CHF: float
+    CLP: float
+    CNY: float
+    COP: float
+    CRC: float
+    CVE: float
+    CZK: float
+    DJF: float
+    DKK: float
+    DOP: float
+    DZD: float
+    EGP: float
+    ETB: float
+    EUR: float
+    FJD: float
+    FKP: float
+    GBP: float
+    GEL: float
+    GGP: float
+    GHS: float
+    GIP: float
+    GMD: float
+    GNF: float
+    GTQ: float
+    GYD: float
+    HKD: float
+    HNL: float
+    HRK: float
+    HTG: float
+    HUF: float
+    IDR: float
+    ILS: float
+    IMP: float
+    INR: float
+    IQD: float
+    IRR: float
+    ISK: float
+    JEP: float
+    JMD: float
+    JOD: float
+    JPY: float
+    KES: float
+    KGS: float
+    KHR: float
+    KMF: float
+    KRW: float
+    KWD: float
+    KYD: float
+    KZT: float
+    LAK: float
+    LBP: float
+    LKR: float
+    LRD: float
+    LSL: float
+    LYD: float
+    MAD: float
+    MDL: float
+    MGA: float
+    MKD: float
+    MMK: float
+    MNT: float
+    MOP: float
+    MRU: float
+    MUR: float
+    MVR: float
+    MWK: float
+    MXN: float
+    MYR: float
+    MZN: float
+    NAD: float
+    NGN: float
+    NIO: float
+    NOK: float
+    NPR: float
+    NZD: float
+    OMR: float
+    PAB: float
+    PEN: float
+    PGK: float
+    PHP: float
+    PKR: float
+    PLN: float
+    PYG: float
+    QAR: float
+    RON: float
+    RSD: float
+    RUB: float
+    RWF: float
+    SAR: float
+    SBD: float
+    SCR: float
+    SDG: float
+    SEK: float
+    SGD: float
+    SHP: float
+    SLE: float
+    SLL: float
+    SOS: float
+    SRD: float
+    SSP: float
+    STN: float
+    SZL: float
+    THB: float
+    TJS: float
+    TMT: float
+    TND: float
+    TOP: float
+    TRY: float
+    TTD: float
+    TWD: float
+    TZS: float
+    UAH: float
+    UGX: float
+    USD: float
+    UYU: float
+    UZS: float
+    VES: float
+    VND: float
+    VUV: float
+    WST: float
+    XAF: float
+    XCD: float
+    XDR: float
+    XOF: float
+    XPF: float
+    YER: float
+    ZAR: float
+    ZMW: float
+    ZWL: float
+
+    class Config:
+        from_attributes = True
+
+
+class CurrencyConversionRequest(StrictBaseModel):
+    amount: float
+    from_currency: Currency
+    to_currency: Currency
+
+
+class ConvertAtTimeRequest(StrictBaseModel):
+    amount: float
+    from_currency: Currency
+    to_currency: Currency
+    timestamp: datetime
+
+
+class ConvertHistoricalRequest(StrictBaseModel):
+    amount: float
+    from_currency: Currency
+    to_currency: Currency
+    date: date
+
+    @field_validator("date", mode="before")
+    @classmethod
+    def parse_date(cls, value):
+        if isinstance(value, date) and not isinstance(value, datetime):
+            return value
+        if isinstance(value, datetime):
+            return value.date()
+        if isinstance(value, str):
+            return datetime.strptime(value, "%Y-%m-%d").date()
+        return value
+
+
+class CurrencyConversionResponse(StrictBaseModel):
+    converted_amount: float
+    rate_from: float
+    rate_to: float
+    original_amount: float
+    from_currency: Currency
+    to_currency: Currency
+    source: Optional[str] = None
+    rate_timestamp: Optional[datetime] = None
+    rate_date: Optional[date] = None
+
+
+class CurrenciesResponse(StrictBaseModel):
+    currencies: list[str]
+    base_currency: str = Currency.INR.value
