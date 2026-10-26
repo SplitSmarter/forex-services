@@ -1,7 +1,9 @@
+import json
 import os
 import sys
 import logging
 from datetime import datetime, timezone
+from logging.handlers import RotatingFileHandler
 from contextvars import ContextVar
 from dotenv import load_dotenv
 
@@ -38,26 +40,34 @@ TRACE_ID_KEY = "trace_id"
 TRACE_ID_HEADER_NAME = "X-Trace-Id"
 ctx_trace_id: ContextVar[str] = ContextVar("trace_id", default="-")
 
-class UTCFormatter(logging.Formatter):
-    """Custom UTC formatter for consistent timestamps."""
-    converter = datetime.fromtimestamp
+class JsonFormatter(logging.Formatter):
+    def format(self, record: logging.LogRecord) -> str:
+        trace_id = getattr(record, TRACE_ID_KEY, None) or "-"
+        payload = {
+            "ts": datetime.fromtimestamp(record.created, tz=timezone.utc).isoformat(),
+            "level": record.levelname,
+            "service": APP_NAME,
+            "trace_id": trace_id,
+            "logger": record.name,
+            "message": record.getMessage(),
+        }
+        if record.exc_info:
+            payload["exception"] = self.formatException(record.exc_info)
+        return json.dumps(payload, ensure_ascii=False)
 
-    def formatTime(self, record, datefmt=None):
-        dt = datetime.fromtimestamp(record.created, tz=timezone.utc)
-        if datefmt:
-            return dt.strftime(datefmt)
-        return dt.isoformat()
 
-LOG_FORMAT = "%(asctime)s - %(levelname)s - [%(trace_id)s] - %(name)s - %(module)s - %(funcName)s - %(message)s"
-formatter = UTCFormatter(LOG_FORMAT)
+formatter = JsonFormatter()
 
-# Stream handler → stdout (container/docker friendly)
 stream_handler = logging.StreamHandler(sys.stdout)
 stream_handler.setFormatter(formatter)
 
-# File handler
 os.makedirs("logs", exist_ok=True)
-file_handler = logging.FileHandler("logs/forex-service.log")
+file_handler = RotatingFileHandler(
+    "logs/app.log",
+    maxBytes=10 * 1024 * 1024,
+    backupCount=3,
+    encoding="utf-8",
+)
 file_handler.setFormatter(formatter)
 
 # Application logger
