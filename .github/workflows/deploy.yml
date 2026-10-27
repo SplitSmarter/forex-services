@@ -1,0 +1,22 @@
+name: Trigger Forex Services Deployment
+
+# Manual only — does not run on push.
+# Pick the branch via GitHub's "Use workflow from" when running the workflow.
+on:
+  workflow_dispatch:
+
+# Reusable workflows can only use permissions the caller grants.
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  call-central-workflow:
+    uses: SplitSmarter/ci-cd-workflows/.github/workflows/python-docker-deploy.yml@main
+    with:
+      branch_name: ${{ github.ref }}
+      service_name: forex-services
+      project_root: "."
+    secrets:
+      GHCR_USERNAME: ${{ secrets.GHCR_USERNAME }}
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
